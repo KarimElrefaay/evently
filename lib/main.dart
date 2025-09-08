@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
+import 'package:provider/provider.dart';
+import 'lib/bottom_navigation_bar.dart';
 
+// استيراد الـ Providers
+import 'provider/app_language_provider.dart';
+import 'provider/app_theme_provider.dart';
 
 void main() {
- runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppLanguageProvider()),
+        ChangeNotifierProvider(create: (_) => AppThemeProvider()), // 🟢 أضفت الـ Theme Provider
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,10 +27,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Evently",
       theme: ThemeData(
-        primarySwatch: Colors.blue
+        primarySwatch: Colors.blue,
       ),
-      home: const SplashScreen(),
-
+      home: const BottomNavExample(),
     );
   }
 }
